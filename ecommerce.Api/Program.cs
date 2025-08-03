@@ -15,6 +15,7 @@ builder.Services.AddCarter();
 // option pattern
 builder.Configuration.addConfigurationFiles(builder);
 builder.Services.AddOptions(builder);
+
 var services = builder.Services.BuildServiceProvider();
 
 //Rate Limit

@@ -44,14 +44,13 @@ public static class OptionsBuilderExtensions
     {
         services.AddSingleton<IValidator<RateLimitConstrain>, RateLimitConstrainsValidator>();
         services.AddSingleton<IValidator<jwtOption>, jwtValidator>();
-
-
+        
         // bind service
 
-        services.AddOptions<RateLimitConstrain>().Bind(builder.Configuration.GetSection(RateLimitConstrain.sectionName))
+        services.AddOptions<RateLimitConstrain>().Bind(builder.Configuration)
             .ValidateFluently().ValidateOnStart();
         
-        services.AddOptions<jwtOption>().Bind(builder.Configuration.GetSection(jwtOption.sectionName))
+        services.AddOptions<jwtOption>().Bind(builder.Configuration)
             .ValidateFluently().ValidateOnStart();
 
         return services;

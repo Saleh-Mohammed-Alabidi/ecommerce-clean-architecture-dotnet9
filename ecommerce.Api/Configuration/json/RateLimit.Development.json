@@ -1,5 +1,5 @@
 {
-  "PermitLimit": 300,
+  "PermitLimit": 2,
   "TimeSpan": 1,
   "QueueLimit": 1
 }
