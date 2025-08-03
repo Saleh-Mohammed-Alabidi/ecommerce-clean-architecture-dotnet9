@@ -13,18 +13,18 @@ public static class RateLimitPolicyExtensions
         {
             options.AddPolicy("GlobalPolicy", httpContext =>
             {
-                // Use the remote IP address as the partition key for rate limiting
                 var ipAddress = httpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
 
                 return RateLimitPartition.GetFixedWindowLimiter(ipAddress, _ => new FixedWindowRateLimiterOptions
                 {
-                    PermitLimit = rateLimitConfig.Value.PermitLimit, // Allow X requests
-                    Window = TimeSpan.FromMinutes(rateLimitConfig.Value.TimeSpan), // Reset every X Minutes
-                    QueueLimit = rateLimitConfig.Value.QueueLimit, // Queue X Queue extra requests
+                    PermitLimit = rateLimitConfig.Value.PermitLimit,
+                    Window = TimeSpan.FromMinutes(rateLimitConfig.Value.TimeSpan),
+                    QueueLimit = rateLimitConfig.Value.QueueLimit,
                     QueueProcessingOrder = QueueProcessingOrder.OldestFirst
                 });
             });
         });
+
         return services;
     }
 }
