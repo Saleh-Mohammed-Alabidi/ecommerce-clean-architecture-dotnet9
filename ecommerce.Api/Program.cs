@@ -1,10 +1,16 @@
 using Carter;
 using ecommerce.Common.Configuration.Constrain;
 using ecommerce.Common.Extensions;
+using ecommerce.Common.Filters;
+using ecommerce.Infrastructure;
 using Microsoft.Extensions.Options;
 using Scalar.AspNetCore;
 
+
 var builder = WebApplication.CreateBuilder(args);
+
+// ✅ Generic logger init
+LoggingFilter.InitializeLogger();
 
 // Add services to the container.
 builder.Services.AddOpenApi();
@@ -32,6 +38,10 @@ builder.Services.AddAuthentication(jwtOptions);
 
 // MediatR
 builder.Services.AddMediatR(options => { options.RegisterServicesFromAssemblyContaining(typeof(Program)); });
+
+// add AddInfrastructure
+var dbOptions = services.GetRequiredService<IOptions<databaseOption>>();
+builder.Services.AddInfrastructure(dbOptions);
 
 var app = builder.Build();
 

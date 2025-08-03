@@ -1,0 +1,29 @@
+﻿using ecommerce.Application.Common.Interfaces.Persistence;
+using ecommerce.Infrastructure.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
+
+namespace ecommerce.Infrastructure;
+
+public static class DependencyInjection
+{
+    public static IServiceCollection AddInfrastructure(this IServiceCollection services,
+        IOptions<databaseOption> dbOptions)
+    {
+        // DbContext
+        services.AddDbContext<EcommerceManagementDbContext>(options =>
+        {
+            var connectionString = dbOptions.Value.connection;
+            options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString))
+                .EnableSensitiveDataLogging(false) // Disable sensitive data logging
+                .EnableDetailedErrors(false); // Suppress detailed error logs
+        });
+
+        // Unit of Work (resolve from DbContext)
+        services.AddScoped<IUnitOfWork>(sp =>
+            sp.GetRequiredService<EcommerceManagementDbContext>());
+
+        return services;
+    }
+}

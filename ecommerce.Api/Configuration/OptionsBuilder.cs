@@ -12,7 +12,6 @@ public static class OptionsBuilderExtensions
     ///     3- add  Options in services
     /// </summary>
     /// <returns></returns>
-    
     public static OptionsBuilder<TOptions> ValidateFluently<TOptions>(
         this OptionsBuilder<TOptions> optionsBuilder) where TOptions : class
     {
@@ -25,7 +24,7 @@ public static class OptionsBuilderExtensions
 
         return optionsBuilder;
     }
-    
+
     public static IConfigurationManager addConfigurationFiles(this IConfigurationManager config,
         WebApplicationBuilder builder)
     {
@@ -37,6 +36,10 @@ public static class OptionsBuilderExtensions
         config.AddJsonFile($"Configuration/json/JWT.{builder.Environment.EnvironmentName}.json", true,
             true);
 
+        config.AddJsonFile("Configuration/json/Database.json", true, true);
+        config.AddJsonFile($"Configuration/json/Database.{builder.Environment.EnvironmentName}.json", true,
+            true);
+
         return config;
     }
 
@@ -44,13 +47,17 @@ public static class OptionsBuilderExtensions
     {
         services.AddSingleton<IValidator<RateLimitConstrain>, RateLimitConstrainsValidator>();
         services.AddSingleton<IValidator<jwtOption>, jwtValidator>();
-        
+        services.AddSingleton<IValidator<databaseOption>, DatabaseSettingsValidator>();
+
         // bind service
 
         services.AddOptions<RateLimitConstrain>().Bind(builder.Configuration)
             .ValidateFluently().ValidateOnStart();
-        
+
         services.AddOptions<jwtOption>().Bind(builder.Configuration)
+            .ValidateFluently().ValidateOnStart();
+
+        services.AddOptions<databaseOption>().Bind(builder.Configuration)
             .ValidateFluently().ValidateOnStart();
 
         return services;
