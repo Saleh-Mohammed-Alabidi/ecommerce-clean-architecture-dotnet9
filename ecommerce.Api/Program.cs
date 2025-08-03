@@ -1,0 +1,46 @@
+using Carter;
+using ecommerce.Common.Configuration.Constrain;
+using ecommerce.Common.Extensions;
+using Microsoft.Extensions.Options;
+using Scalar.AspNetCore;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// Add services to the container.
+builder.Services.AddOpenApi();
+
+// carter
+builder.Services.AddCarter();
+
+// option pattern
+builder.Configuration.addConfigurationFiles(builder);
+builder.Services.AddOptions(builder);
+var services = builder.Services.BuildServiceProvider();
+
+//Rate Limit
+var rateLimitOption = services.GetRequiredService<IOptions<RateLimitConstrain>>();
+builder.Services.AddRateLimitPolicy(rateLimitOption);
+
+
+// MediatR
+builder.Services.AddMediatR(options => { options.RegisterServicesFromAssemblyContaining(typeof(Program)); });
+
+var app = builder.Build();
+
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.MapOpenApi();
+    app.MapScalarApiReference();
+}
+
+app.UseHttpsRedirection();
+
+// Rate Limit
+app.UseRateLimiter();
+// map carter
+app.MapCarter();
+
+
+// start 
+app.Run();

@@ -1,0 +1,6 @@
+{
+  "PermitLimit": 300,
+  "TimeSpan": 1,
+  "QueueLimit": 1
+}
+    

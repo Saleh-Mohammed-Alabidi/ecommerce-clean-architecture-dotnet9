@@ -1,0 +1,6 @@
+﻿services:
+  ecommerce:
+    image: ecommerce
+    build:
+      context: .
+      dockerfile: ecommerce/Dockerfile
