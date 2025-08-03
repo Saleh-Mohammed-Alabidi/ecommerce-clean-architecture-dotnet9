@@ -1,5 +1,5 @@
 {
-  "connection": "Server=mariadb;Port=3306;Database=EcommerceManagementDbContext;User=RootDBTest;Password=DBPasswordTest;Pooling=true;ConnectionIdleTimeout=60;MinPoolSize=0;MaxPoolSize=400;"
+  "connection": "Server=localhost;Port=3306;Database=ecommerce;User=root;Password=root101;Pooling=true;ConnectionIdleTimeout=60;MinPoolSize=0;MaxPoolSize=400;"
 
 }
     

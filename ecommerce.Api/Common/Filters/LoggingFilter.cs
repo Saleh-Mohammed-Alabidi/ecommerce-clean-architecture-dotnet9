@@ -1,19 +1,23 @@
-﻿using Serilog;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Extensions;
+using Serilog;
 
-namespace ecommerce.Common.Filters;
+namespace EloroShop.Api.Common.Filters;
 
-public static class LoggingFilter
+public class LoggingFilter : IEndpointFilter
 {
-    public static void InitializeLogger(string configFile = "appsettings.json")
+    public async ValueTask<object?> InvokeAsync(EndpointFilterInvocationContext context, EndpointFilterDelegate next)
     {
-        var configuration = new ConfigurationBuilder()
-            .AddJsonFile(configFile, optional: false, reloadOnChange: true)
-            .Build();
+        var httpContext = context.HttpContext;
+        var request = httpContext.Request;
 
-        Log.Logger = new LoggerConfiguration()
-            .ReadFrom.Configuration(configuration)
-            .Enrich.FromLogContext()
-            .WriteTo.Console()
-            .CreateLogger();
+        Log.Information("Request Start: {Method} {Url}", request.Method, request.GetDisplayUrl());
+
+        var result = await next(context);
+
+        Log.Information("Request Cmpletoed: {Method} {Url} => {@Result}", request.Method, request.GetDisplayUrl(),
+            result);
+
+        return result;
     }
 }

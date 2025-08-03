@@ -1,8 +1,9 @@
 using Carter;
 using ecommerce.Common.Configuration.Constrain;
 using ecommerce.Common.Extensions;
-using ecommerce.Common.Filters;
+using ecommerce.Common.Logger;
 using ecommerce.Infrastructure;
+using EloroShop.Api.Common.Filters;
 using Microsoft.Extensions.Options;
 using Scalar.AspNetCore;
 
@@ -10,7 +11,7 @@ using Scalar.AspNetCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // ✅ Generic logger init
-LoggingFilter.InitializeLogger();
+Logging.InitializeLogger();
 
 // Add services to the container.
 builder.Services.AddOpenApi();
@@ -42,6 +43,10 @@ builder.Services.AddMediatR(options => { options.RegisterServicesFromAssemblyCon
 // add AddInfrastructure
 var dbOptions = services.GetRequiredService<IOptions<databaseOption>>();
 builder.Services.AddInfrastructure(dbOptions);
+
+
+// Filter IEndpoint
+builder.Services.AddScoped(typeof(LoggingFilter));
 
 var app = builder.Build();
 

@@ -27,7 +27,9 @@ public static class DependencyInjection
 
         // ecommerce.Infrastructure.DependencyInjection
         services.AddScoped(typeof(GenericDatabaseRepository<,>));
-
+        
+        
+        // products
 
         return services;
     }
