@@ -1,5 +1,6 @@
 ﻿using ecommerce.Application.Common.Interfaces.Persistence;
 using ecommerce.Infrastructure.Common;
+using ecommerce.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -23,6 +24,10 @@ public static class DependencyInjection
         // Unit of Work (resolve from DbContext)
         services.AddScoped<IUnitOfWork>(sp =>
             sp.GetRequiredService<EcommerceManagementDbContext>());
+
+        // ecommerce.Infrastructure.DependencyInjection
+        services.AddScoped(typeof(GenericDatabaseRepository<,>));
+
 
         return services;
     }

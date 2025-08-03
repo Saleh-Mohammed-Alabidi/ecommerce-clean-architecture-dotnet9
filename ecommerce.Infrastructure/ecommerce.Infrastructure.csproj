@@ -18,6 +18,11 @@
       <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="8.0.3" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Common\Persistence\EntityMapping\" />
+      <Folder Include="Common\Persistence\SeedFiles\" />
+    </ItemGroup>
+
     <PropertyGroup>
         <TargetFramework>net9.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
