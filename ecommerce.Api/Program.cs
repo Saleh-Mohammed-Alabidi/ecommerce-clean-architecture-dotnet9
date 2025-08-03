@@ -21,6 +21,13 @@ var services = builder.Services.BuildServiceProvider();
 var rateLimitOption = services.GetRequiredService<IOptions<RateLimitConstrain>>();
 builder.Services.AddRateLimitPolicy(rateLimitOption);
 
+// Authorization
+builder.Services.AddAuthorizationPolicy();
+
+// Authentication
+var jwtOptions = services.GetRequiredService<IOptions<jwtOption>>();
+builder.Services.AddAuthentication(jwtOptions);
+
 
 // MediatR
 builder.Services.AddMediatR(options => { options.RegisterServicesFromAssemblyContaining(typeof(Program)); });
@@ -36,6 +43,10 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+//Authorization
+app.UseAuthorization();
+// Authentication
+app.UseAuthentication();
 // Rate Limit
 app.UseRateLimiter();
 // map carter

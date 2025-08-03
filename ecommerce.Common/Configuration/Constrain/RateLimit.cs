@@ -2,6 +2,7 @@
 
 public class RateLimitConstrain
 {
+    public static string sectionName { get; set; } = "RateLimit";
     public int PermitLimit { get; set; }
 
     public int TimeSpan { get; set; }

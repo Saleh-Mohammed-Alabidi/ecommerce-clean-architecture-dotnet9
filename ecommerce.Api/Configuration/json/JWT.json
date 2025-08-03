@@ -1,0 +1,10 @@
+{
+  "Jwt": {
+    "Key": "bXlTdXBlclNlY3JldEtleUFkZGVkU2VjdXJlbHk",
+    "Issuer": "Ecommerce",
+    "Audience": "Ecommerce",
+    "ExpireHours": 24
+  }
+}
+            
+            
