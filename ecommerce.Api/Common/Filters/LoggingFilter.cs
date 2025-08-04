@@ -15,7 +15,7 @@ public class LoggingFilter : IEndpointFilter
 
         var result = await next(context);
 
-        Log.Information("Request Cmpletoed: {Method} {Url} => {@Result}", request.Method, request.GetDisplayUrl(),
+        Log.Information("Request Completed: {Method} {Url} => {@Result}", request.Method, request.GetDisplayUrl(),
             result);
 
         return result;

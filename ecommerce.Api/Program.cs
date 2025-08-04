@@ -1,9 +1,13 @@
 using Carter;
+using ecommerce.Api.Features.Cities.Create;
+using ecommerce.Application;
 using ecommerce.Common.Configuration.Constrain;
 using ecommerce.Common.Extensions;
 using ecommerce.Common.Logger;
+using ecommerce.Common.Middleware;
 using ecommerce.Infrastructure;
 using EloroShop.Api.Common.Filters;
+using FluentValidation;
 using Microsoft.Extensions.Options;
 using Scalar.AspNetCore;
 
@@ -37,16 +41,22 @@ var jwtOptions = services.GetRequiredService<IOptions<jwtOption>>();
 builder.Services.AddAuthentication(jwtOptions);
 
 
-// MediatR
-builder.Services.AddMediatR(options => { options.RegisterServicesFromAssemblyContaining(typeof(Program)); });
-
 // add AddInfrastructure
 var dbOptions = services.GetRequiredService<IOptions<databaseOption>>();
 builder.Services.AddInfrastructure(dbOptions);
-
+builder.Services.AddApplication();
 
 // Filter IEndpoint
 builder.Services.AddScoped(typeof(LoggingFilter));
+
+// MediatR
+builder.Services.AddMediatR(cfg =>
+{
+    cfg.RegisterServicesFromAssemblyContaining(typeof(Program)); // Your API layer or main assembly
+});
+
+builder.Services.AddValidatorsFromAssemblyContaining<Validator>(); // Your validator class
+
 
 var app = builder.Build();
 
@@ -57,17 +67,14 @@ if (app.Environment.IsDevelopment())
     app.MapScalarApiReference();
 }
 
-app.UseHttpsRedirection();
 
-//Authorization
-app.UseAuthorization();
-// Authentication
-app.UseAuthentication();
-// Rate Limit
-app.UseRateLimiter();
-// map carter
+app.UseHttpsRedirection()
+    .UseAuthentication()
+    .UseAuthorization()
+    .UseRateLimiter();
+
+app.UseMiddleware<CustomMiddleware>();
 app.MapCarter();
-
 
 // start 
 app.Run();

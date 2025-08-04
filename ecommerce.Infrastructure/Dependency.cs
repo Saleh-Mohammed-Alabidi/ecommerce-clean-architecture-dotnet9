@@ -27,10 +27,11 @@ public static class DependencyInjection
 
         // ecommerce.Infrastructure.DependencyInjection
         services.AddScoped(typeof(GenericDatabaseRepository<,>));
-        
-        
-        // products
 
+        services.AddMediatR(options =>
+        {
+            options.RegisterServicesFromAssemblyContaining(typeof(DependencyInjection));
+        });
         return services;
     }
 }
