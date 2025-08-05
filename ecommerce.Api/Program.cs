@@ -1,13 +1,12 @@
 using Carter;
-using ecommerce.Api.Features.Cities.Create;
 using ecommerce.Application;
 using ecommerce.Common.Configuration.Constrain;
 using ecommerce.Common.Extensions;
 using ecommerce.Common.Logger;
 using ecommerce.Common.Middleware;
+using ecommerce.Features.Api;
 using ecommerce.Infrastructure;
 using EloroShop.Api.Common.Filters;
-using FluentValidation;
 using Microsoft.Extensions.Options;
 using Scalar.AspNetCore;
 
@@ -55,7 +54,7 @@ builder.Services.AddMediatR(cfg =>
     cfg.RegisterServicesFromAssemblyContaining(typeof(Program)); // Your API layer or main assembly
 });
 
-builder.Services.AddValidatorsFromAssemblyContaining<Validator>(); // Your validator class
+builder.Services.AddValidators(); // Your validator class
 
 
 var app = builder.Build();

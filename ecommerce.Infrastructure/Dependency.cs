@@ -32,6 +32,13 @@ public static class DependencyInjection
         {
             options.RegisterServicesFromAssemblyContaining(typeof(DependencyInjection));
         });
+
+
+        services.AddScoped<IProductsRepository, ProductsRepository>();
+        services.AddScoped<ICategoriesRepository, CategoriesRepository>();
+        services.AddScoped<ICustomersRepository, CustomersRepository>();
+        services.AddScoped<IOrdersRepository, OrdersRepository>();
+
         return services;
     }
 }

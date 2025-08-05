@@ -1,20 +1,18 @@
-﻿using ecommerce.Domain.Models.Products;
-
-namespace ecommerce.Application.Common.Interfaces.Persistence;
+﻿namespace ecommerce.Application.Common.Interfaces.Persistence;
 
 public interface IProductsRepository
 {
-    Task AddAsync(Products data, CancellationToken token);
+    Task AddAsync(Domain.Models.Products.Products data, CancellationToken token);
 
-    Task AddRangeAsync(ICollection<Products> data, CancellationToken token);
+    Task AddRangeAsync(ICollection<Domain.Models.Products.Products> data, CancellationToken token);
 
-    Task<Products> GetByIdAsync(int id, CancellationToken token);
+    Task<Domain.Models.Products.Products?> GetByIdAsync(int id, CancellationToken token, bool asNoTracking=true);
 
-    Task<List<Products>> GetAllAsync(CancellationToken token);
+    Task<List<Domain.Models.Products.Products>> GetAllAsync(CancellationToken token, bool asNoTracking=true);
 
-    void Delete(Products data, CancellationToken token);
+    void Delete(Domain.Models.Products.Products data, CancellationToken token);
 
-    void Update(Products data, CancellationToken token);
+    void Update(Domain.Models.Products.Products data, CancellationToken token);
 
-    void UpdateAll(List<Products> data, CancellationToken token);
+    void UpdateAll(List<Domain.Models.Products.Products> data, CancellationToken token);
 }

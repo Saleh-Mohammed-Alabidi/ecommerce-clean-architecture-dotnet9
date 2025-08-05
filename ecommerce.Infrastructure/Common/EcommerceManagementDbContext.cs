@@ -1,5 +1,9 @@
 ﻿using System.Reflection;
 using ecommerce.Application.Common.Interfaces.Persistence;
+using ecommerce.Domain.Models.Categories;
+using ecommerce.Domain.Models.Customers;
+using ecommerce.Domain.Models.OrderItems;
+using ecommerce.Domain.Models.Orders;
 using ecommerce.Domain.Models.Products;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,10 +13,17 @@ public class EcommerceManagementDbContext(DbContextOptions<EcommerceManagementDb
     : DbContext(options), IUnitOfWork
 {
     public virtual DbSet<Products> Products => Set<Products>();
+    public virtual DbSet<Categories> Categories => Set<Categories>();
 
-    public async Task CommitChangesAsync()
+    public virtual DbSet<Customers> Customers => Set<Customers>();
+
+    public virtual DbSet<Orders> Orders => Set<Orders>();
+
+    public virtual DbSet<OrderItems> OrderItems => Set<OrderItems>();
+
+    public async Task CommitChangesAsync(CancellationToken cancellationToken)
     {
-        await SaveChangesAsync();
+        await SaveChangesAsync(cancellationToken);
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -3,41 +3,47 @@ using ecommerce.Domain.Models.Products;
 
 namespace ecommerce.Infrastructure.Persistence;
 
-public class ProductsRepository:IProductsRepository
+public class ProductsRepository : IProductsRepository
 {
-    
-    public Task AddAsync(Products data, CancellationToken token)
+    private readonly GenericDatabaseRepository<Products, int> genericDatabaseRepository;
+
+    public ProductsRepository(GenericDatabaseRepository<Products, int> genericDatabaseRepository)
     {
-        throw new NotImplementedException();
+        this.genericDatabaseRepository = genericDatabaseRepository;
     }
 
-    public Task AddRangeAsync(ICollection<Products> data, CancellationToken token)
+    public async Task AddAsync(Products data, CancellationToken token)
     {
-        throw new NotImplementedException();
+        await genericDatabaseRepository.AddAsync(data, token);
     }
 
-    public Task<Products> GetByIdAsync(int id, CancellationToken token)
+    public async Task AddRangeAsync(ICollection<Products> data, CancellationToken token)
     {
-        throw new NotImplementedException();
+        await genericDatabaseRepository.AddRangeAsync(data, token);
     }
 
-    public Task<List<Products>> GetAllAsync(CancellationToken token)
+    public async Task<Products?> GetByIdAsync(int id, CancellationToken token, bool asNoTracking = true)
     {
-        throw new NotImplementedException();
+        return await genericDatabaseRepository.GetByIdAsync(id, asNoTracking, token);
+    }
+
+    public async Task<List<Products>> GetAllAsync(CancellationToken token, bool asNoTracking = true)
+    {
+        return await genericDatabaseRepository.GetAllAsync(asNoTracking, token);
     }
 
     public void Delete(Products data, CancellationToken token)
     {
-        throw new NotImplementedException();
+        genericDatabaseRepository.Delete(data);
     }
 
     public void Update(Products data, CancellationToken token)
     {
-        throw new NotImplementedException();
+        genericDatabaseRepository.Update(data);
     }
 
     public void UpdateAll(List<Products> data, CancellationToken token)
     {
-        throw new NotImplementedException();
+        genericDatabaseRepository.UpdateAll(data);
     }
 }
