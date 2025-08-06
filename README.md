@@ -1,5 +1,5 @@
 
-# 📦 Ecommerce Clean Architecture • .NET 9
+# 📦 Ecommerce Clean Architecture .NET 9
 
 ## 🧭 Overview
 A modular eCommerce API built with .NET 9 using Clean Architecture principles, Minimal APIs, and Entity Framework.
