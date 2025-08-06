@@ -76,4 +76,3 @@ Distributed under the **MIT License**. See `LICENSE` for more information.
 * Adopts the layered structure consistent with Clean Architecture and DDD.
 * Guides newcomers quickly through setup, structure, tech choices, and running instructions.
 
-Let me know if you’d like help customizing specific sections—like adding configuration examples, docker-compose setup, health checks, Swagger UI instructions, or deployment guidance!
