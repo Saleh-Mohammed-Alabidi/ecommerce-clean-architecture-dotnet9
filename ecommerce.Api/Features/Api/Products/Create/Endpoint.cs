@@ -20,7 +20,7 @@ public class Endpoint : BaseApi
                 var result = await sender.Send(command, token);
 
                 return result.Match(
-                    product => Results.Created($"/products/{product.Id}", product),
+                    product => Results.Created($"{Router.Products.Create}/{product.Id}", product),
                     errors => errors.ToProblemDetails());
             })
             .WithValidation<Request>();

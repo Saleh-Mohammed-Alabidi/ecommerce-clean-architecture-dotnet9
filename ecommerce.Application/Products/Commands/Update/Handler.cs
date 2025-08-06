@@ -5,12 +5,14 @@ using MediatR;
 
 namespace ecommerce.Application.Products.Commands.Update;
 
+using ecommerce.Domain.Models.Products;
+
 public class Handler(
     IProductsRepository productsRepository,
     IUnitOfWork unitOfWork)
-    : IRequestHandler<Command, ErrorOr<Domain.Models.Products.Products>>
+    : IRequestHandler<Command, ErrorOr<Products>>
 {
-    public async Task<ErrorOr<Domain.Models.Products.Products>> Handle(Command request,
+    public async Task<ErrorOr<Products>> Handle(Command request,
         CancellationToken cancellationToken)
     {
         var product = await productsRepository.GetByIdAsync(request.Id, cancellationToken, false);

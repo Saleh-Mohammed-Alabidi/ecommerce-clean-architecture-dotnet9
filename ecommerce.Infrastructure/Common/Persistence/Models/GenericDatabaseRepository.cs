@@ -39,14 +39,17 @@ public class GenericDatabaseRepository<TEntity, TKey>
         return await query.ToListAsync(cancellationToken);
     }
 
-    public async Task AddAsync(TEntity entity, CancellationToken cancellationToken = default)
+    public async Task<TEntity> AddAsync(TEntity entity, CancellationToken cancellationToken = default)
     {
         await _dbSet.AddAsync(entity, cancellationToken);
+        return entity;
     }
 
-    public async Task AddRangeAsync(ICollection<TEntity> entities, CancellationToken cancellationToken = default)
+    public async Task<ICollection<TEntity>> AddRangeAsync(ICollection<TEntity> entities,
+        CancellationToken cancellationToken = default)
     {
         await _dbSet.AddRangeAsync(entities, cancellationToken);
+        return entities;
     }
 
 

@@ -1,20 +1,21 @@
 ﻿using ecommerce.Application.Common.Interfaces.Persistence;
 using ErrorOr;
 using MediatR;
-using Product = ecommerce.Domain.Models.Products.Products;
 
 namespace ecommerce.Application.Products.Commands.Create;
+
+using ecommerce.Domain.Models.Products;
 
 public class Handler(
     IProductsRepository productsRepository,
     IUnitOfWork unitOfWork)
-    : IRequestHandler<Command, ErrorOr<Product>>
+    : IRequestHandler<Command, ErrorOr<Products>>
 {
-    public async Task<ErrorOr<Product>> Handle(Command request,
+    public async Task<ErrorOr<Products>> Handle(Command request,
         CancellationToken cancellationToken)
     {
         // Domain validation
-        var createResult = Product.Create(
+        var createResult = Products.Create(
             request.Name, request.Price, request.CategoryId);
 
         if (createResult.IsError)

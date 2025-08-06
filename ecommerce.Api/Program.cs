@@ -77,3 +77,6 @@ app.MapCarter();
 
 // start 
 app.Run();
+
+// 👇 Required for integration testing with WebApplicationFactory<Program>
+public partial class Program { }

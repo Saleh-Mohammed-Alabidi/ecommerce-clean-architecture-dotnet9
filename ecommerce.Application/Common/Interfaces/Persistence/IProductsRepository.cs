@@ -2,9 +2,9 @@
 
 public interface IProductsRepository
 {
-    Task AddAsync(Domain.Models.Products.Products data, CancellationToken token);
+    Task<Domain.Models.Products.Products> AddAsync(Domain.Models.Products.Products data, CancellationToken token);
 
-    Task AddRangeAsync(ICollection<Domain.Models.Products.Products> data, CancellationToken token);
+    Task<ICollection<Domain.Models.Products.Products>> AddRangeAsync(ICollection<Domain.Models.Products.Products> data, CancellationToken token);
 
     Task<Domain.Models.Products.Products?> GetByIdAsync(int id, CancellationToken token, bool asNoTracking=true);
 

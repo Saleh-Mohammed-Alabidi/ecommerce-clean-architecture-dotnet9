@@ -12,14 +12,14 @@ public class ProductsRepository : IProductsRepository
         this.genericDatabaseRepository = genericDatabaseRepository;
     }
 
-    public async Task AddAsync(Products data, CancellationToken token)
+    public async Task<Products> AddAsync(Products data, CancellationToken token)
     {
-        await genericDatabaseRepository.AddAsync(data, token);
+       return await genericDatabaseRepository.AddAsync(data, token);
     }
 
-    public async Task AddRangeAsync(ICollection<Products> data, CancellationToken token)
+    public async Task<ICollection<Products>> AddRangeAsync(ICollection<Products> data, CancellationToken token)
     {
-        await genericDatabaseRepository.AddRangeAsync(data, token);
+       return await genericDatabaseRepository.AddRangeAsync(data, token);
     }
 
     public async Task<Products?> GetByIdAsync(int id, CancellationToken token, bool asNoTracking = true)
