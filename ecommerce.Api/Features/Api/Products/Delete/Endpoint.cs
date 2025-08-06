@@ -4,14 +4,14 @@ using ecommerce.Common.Extensions;
 using ErrorOr;
 using MediatR;
 
-namespace ecommerce.Api.Features.Products.Update;
+namespace ecommerce.Api.Features.Products.Delete;
 
 public class Endpoint : BaseApi
 {
     public override void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapPut(Router.Products.Update, async (
-                Request request,
+        app.MapDelete(Router.Products.Delete, async (
+                [AsParameters] Request request,
                 ISender sender,
                 CancellationToken cancellationToken) =>
             {

@@ -18,9 +18,7 @@ public class Handler(
             request.Name, request.Price, request.CategoryId);
 
         if (createResult.IsError)
-        {
             return createResult.Errors;
-        }
 
         var product = createResult.Value;
 

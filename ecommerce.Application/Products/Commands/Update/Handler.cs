@@ -16,10 +16,7 @@ public class Handler(
         var product = await productsRepository.GetByIdAsync(request.Id, cancellationToken, false);
 
         if (product is null)
-        {
             return ProductsErrors.NotFound(request.Id);
-        }
-
 
         // Apply update
         product.Update(request.Name.Trim(), request.Price, request.CategoryId);

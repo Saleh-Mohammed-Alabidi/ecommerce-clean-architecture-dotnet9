@@ -4,14 +4,14 @@ using ecommerce.Common.Extensions;
 using ErrorOr;
 using MediatR;
 
-namespace ecommerce.Api.Features.Products.Update;
+namespace ecommerce.Api.Features.Products.GetById;
 
 public class Endpoint : BaseApi
 {
     public override void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapPut(Router.Products.Update, async (
-                Request request,
+        app.MapGet(Router.Products.GetById, async (
+                [AsParameters] Request request,
                 ISender sender,
                 CancellationToken cancellationToken) =>
             {
@@ -20,7 +20,7 @@ public class Endpoint : BaseApi
                 var result = await sender.Send(command, cancellationToken);
 
                 return result.Match(
-                    product => Results.Ok(product),
+                    product => Results.Ok(product.ToResponse()),
                     errors => errors.ToProblemDetails());
             })
             .WithValidation<Request>();

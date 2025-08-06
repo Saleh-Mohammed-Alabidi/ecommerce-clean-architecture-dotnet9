@@ -11,10 +11,6 @@
       <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.7" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Products\Queries\GetById\" />
-    </ItemGroup>
-
     <PropertyGroup>
         <TargetFramework>net9.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>

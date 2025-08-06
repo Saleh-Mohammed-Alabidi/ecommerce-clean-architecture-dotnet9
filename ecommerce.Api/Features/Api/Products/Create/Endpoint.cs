@@ -17,7 +17,7 @@ public class Endpoint : BaseApi
             {
                 var command = request.ToCommand();
 
-                ErrorOr<Domain.Models.Products.Products> result = await sender.Send(command, token);
+                var result = await sender.Send(command, token);
 
                 return result.Match(
                     product => Results.Created($"/products/{product.Id}", product),

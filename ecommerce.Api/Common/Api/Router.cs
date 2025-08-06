@@ -17,5 +17,6 @@ public static class Router
         public const string Create = Base;
         public const string GetById = $"{Base}/id/";
         public const string Update = $"{Base}/";
+        public const string Delete = $"{Base}/";
     }
 }

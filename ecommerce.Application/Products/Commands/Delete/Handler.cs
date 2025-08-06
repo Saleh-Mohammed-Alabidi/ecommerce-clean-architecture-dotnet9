@@ -15,9 +15,7 @@ public class Handler(
         var product = await productsRepository.GetByIdAsync(request.Id, cancellationToken);
 
         if (product is null)
-        {
             return ProductsErrors.NotFound(request.Id);
-        }
 
         productsRepository.Delete(product, cancellationToken);
         await unitOfWork.CommitChangesAsync(cancellationToken);
